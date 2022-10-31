@@ -1,4 +1,5 @@
-# google / aliyun / baidu
+# 翻译接口选择
+# google / aliyun / baidu / youdao
 provider: google
 
 # 代理地址
@@ -8,11 +9,13 @@ proxy:
   host: "127.0.0.1"
   port: 1080
 
+# 阿里云翻译账号配置 不使用阿里云接口请忽略
 # https://usercenter.console.aliyun.com/#/manage/ak
 aliyun:
   accessKeyId: "1234"
   accessKeySecret: "1234"
 
+# 百度翻译账号配置 不使用百度翻译接口请忽略
 # https://fanyi-api.baidu.com/
 baidu:
   appId: "1234"

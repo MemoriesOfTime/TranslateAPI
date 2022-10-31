@@ -3,10 +3,7 @@ package cn.lanink.gamecore.translateapi;
 import cn.lanink.gamecore.GameCore;
 import cn.lanink.gamecore.api.Info;
 import cn.lanink.gamecore.hotswap.ModuleBase;
-import cn.lanink.gamecore.translateapi.provider.AliyunTranslateProvider;
-import cn.lanink.gamecore.translateapi.provider.BaiduTranslateProvider;
-import cn.lanink.gamecore.translateapi.provider.GoogleTranslateProvider;
-import cn.lanink.gamecore.translateapi.provider.TranslateProvider;
+import cn.lanink.gamecore.translateapi.provider.*;
 import cn.nukkit.scheduler.AsyncTask;
 
 import java.util.function.Consumer;
@@ -42,6 +39,9 @@ public class TranslateAPI extends ModuleBase {
                 break;
             case "baidu":
                 this.translateProvider = new BaiduTranslateProvider();
+                break;
+            case "youdao":
+                this.translateProvider = new YoudaoTranslateProvider();
                 break;
             case "google":
             default:
