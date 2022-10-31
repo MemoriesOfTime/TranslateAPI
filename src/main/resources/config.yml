@@ -1,0 +1,19 @@
+# google / aliyun / baidu
+provider: google
+
+# 代理地址
+# 这会影响整个服务器，请谨慎使用
+proxy:
+  enable: false #是否启用代理
+  host: "127.0.0.1"
+  port: 1080
+
+# https://usercenter.console.aliyun.com/#/manage/ak
+aliyun:
+  accessKeyId: "1234"
+  accessKeySecret: "1234"
+
+# https://fanyi-api.baidu.com/
+baidu:
+  appId: "1234"
+  secretKey: "1234"
