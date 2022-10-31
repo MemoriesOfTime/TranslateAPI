@@ -1,6 +1,7 @@
 package cn.lanink.gamecore.translateapi;
 
 import cn.lanink.gamecore.GameCore;
+import cn.lanink.gamecore.api.Info;
 import cn.lanink.gamecore.hotswap.ModuleBase;
 import cn.lanink.gamecore.translateapi.provider.AliyunTranslateProvider;
 import cn.lanink.gamecore.translateapi.provider.BaiduTranslateProvider;
@@ -8,9 +9,12 @@ import cn.lanink.gamecore.translateapi.provider.GoogleTranslateProvider;
 import cn.lanink.gamecore.translateapi.provider.TranslateProvider;
 import cn.nukkit.scheduler.AsyncTask;
 
+import java.util.function.Consumer;
+
 /**
  * @author LT_Name
  */
+@Info("GameCore TranslateAPI 模块")
 public class TranslateAPI extends ModuleBase {
 
     private static TranslateAPI translateAPI;
@@ -53,9 +57,9 @@ public class TranslateAPI extends ModuleBase {
                 TranslateAPI.this.getLogger().info("正在测试翻译功能...");
                 String result = TranslateAPI.this.translateProvider.translate("Hello World!");
                 if (result != null) {
-                    TranslateAPI.this.getLogger().info("翻译结果：" + result);
+                    TranslateAPI.this.getLogger().info("测试翻译结果: Hello World! -> " + result);
                 }else {
-                    TranslateAPI.this.getLogger().info("翻译失败！");
+                    TranslateAPI.this.getLogger().info("测试翻译失败！");
                 }
             }
         });
@@ -68,6 +72,34 @@ public class TranslateAPI extends ModuleBase {
 
     public TranslateProvider getTranslateProvider() {
         return this.translateProvider;
+    }
+
+    @Info("翻译为中文，调用此方法应放到异步！")
+    public String translate(String text) {
+        return this.translate("auto", "zh", text);
+    }
+
+    public void translate(String text, Consumer<String> consumer) {
+        this.getServer().getScheduler().scheduleAsyncTask(GameCore.getInstance(), new AsyncTask() {
+            @Override
+            public void onRun() {
+                consumer.accept(translate(text));
+            }
+        });
+    }
+
+    @Info("根据输入翻译为指定语言，调用此方法应放到异步！")
+    public String translate(String sourceLanguage, String targetLanguage, String text) {
+        return this.translateProvider.translate(sourceLanguage, targetLanguage, text);
+    }
+
+    public void translate(String sourceLanguage, String targetLanguage, String text, Consumer<String> consumer) {
+        this.getServer().getScheduler().scheduleAsyncTask(GameCore.getInstance(), new AsyncTask() {
+            @Override
+            public void onRun() {
+                consumer.accept(translate(sourceLanguage, targetLanguage, text));
+            }
+        });
     }
 
 }

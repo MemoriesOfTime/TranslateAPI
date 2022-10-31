@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 百度翻译
+ *
  * @author LT_Name
  */
 public class BaiduTranslateProvider implements TranslateProvider {

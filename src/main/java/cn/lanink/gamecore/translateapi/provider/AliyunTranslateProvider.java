@@ -8,6 +8,8 @@ import com.aliyun.teaopenapi.models.Config;
 import com.aliyun.teautil.models.RuntimeOptions;
 
 /**
+ * 阿里云翻译
+ *
  * @author LT_Name
  */
 public class AliyunTranslateProvider implements TranslateProvider {

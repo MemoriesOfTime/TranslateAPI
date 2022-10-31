@@ -9,6 +9,8 @@ import java.net.URLEncoder;
 import java.util.List;
 
 /**
+ * 谷歌翻译
+ *
  * @author LT_Name
  */
 public class GoogleTranslateProvider implements TranslateProvider {
