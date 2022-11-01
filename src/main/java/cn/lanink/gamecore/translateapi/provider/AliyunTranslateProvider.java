@@ -19,7 +19,7 @@ public class AliyunTranslateProvider implements TranslateProvider {
     }
 
     public String translate(String text) {
-        return translate("en", "zh", text);
+        return translate("auto", "zh", text);
     }
 
     public String translate(String sourceLanguage, String targetLanguage, String text) {

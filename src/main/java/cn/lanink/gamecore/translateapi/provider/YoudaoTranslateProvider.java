@@ -18,8 +18,13 @@ public class YoudaoTranslateProvider implements TranslateProvider {
     }
 
     @Override
+    public boolean isSupportAuto() {
+        return false;
+    }
+
+    @Override
     public String translate(String text) {
-        return this.translate("AUTO", null, text);
+        return this.translate("EN", "ZH_CN", text);
     }
 
     @Override
