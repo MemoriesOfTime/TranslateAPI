@@ -5,6 +5,7 @@ import cn.lanink.gamecore.translateapi.TranslateAPI;
 import cn.lanink.gamecore.translateapi.utils.MD5;
 import cn.lanink.gamecore.translateapi.utils.Network;
 import com.google.gson.reflect.TypeToken;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,12 +29,12 @@ public class BaiduTranslateProvider implements TranslateProvider {
     }
 
     @Override
-    public String translate(String text) {
+    public String translate(@NotNull String text) {
         return this.translate("auto", "zh", text);
     }
 
     @Override
-    public String translate(String sourceLanguage, String targetLanguage, String text) {
+    public String translate(@NotNull String sourceLanguage, @NotNull String targetLanguage, @NotNull String text) {
         try {
             Map<String, String> params = new HashMap<>();
             params.put("q", text);

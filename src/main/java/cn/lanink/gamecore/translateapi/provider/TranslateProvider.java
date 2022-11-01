@@ -1,6 +1,7 @@
 package cn.lanink.gamecore.translateapi.provider;
 
 import cn.lanink.gamecore.api.Info;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author LT_Name
@@ -12,8 +13,8 @@ public interface TranslateProvider {
         return true;
     }
 
-    String translate(String text);
+    String translate(@NotNull String text);
 
-    String translate(String sourceLanguage, String targetLanguage, String text);
+    String translate(@NotNull String sourceLanguage, @NotNull String targetLanguage, @NotNull String text);
 
 }

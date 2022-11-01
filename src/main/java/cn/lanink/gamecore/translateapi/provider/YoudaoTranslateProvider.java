@@ -3,6 +3,7 @@ package cn.lanink.gamecore.translateapi.provider;
 import cn.lanink.gamecore.translateapi.TranslateAPI;
 import cn.lanink.gamecore.translateapi.utils.Network;
 import com.google.gson.Gson;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,12 +24,12 @@ public class YoudaoTranslateProvider implements TranslateProvider {
     }
 
     @Override
-    public String translate(String text) {
+    public String translate(@NotNull String text) {
         return this.translate("EN", "ZH_CN", text);
     }
 
     @Override
-    public String translate(String sourceLanguage, String targetLanguage, String text) {
+    public String translate(@NotNull String sourceLanguage, @NotNull String targetLanguage, @NotNull String text) {
         /*
             ZH_CN2EN 中文　»　英语
             ZH_CN2JA 中文　»　日语

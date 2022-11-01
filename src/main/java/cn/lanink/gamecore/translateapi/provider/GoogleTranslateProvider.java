@@ -4,6 +4,7 @@ import cn.lanink.gamecore.GameCore;
 import cn.lanink.gamecore.translateapi.TranslateAPI;
 import cn.lanink.gamecore.translateapi.utils.Network;
 import com.google.gson.reflect.TypeToken;
+import org.jetbrains.annotations.NotNull;
 
 import java.net.URLEncoder;
 import java.util.List;
@@ -21,11 +22,11 @@ public class GoogleTranslateProvider implements TranslateProvider {
         TranslateAPI.getInstance().getLogger().info("TranslateProvider: Google");
     }
 
-    public String translate(String text) {
+    public String translate(@NotNull String text) {
         return translate("auto", "zh", text);
     }
 
-    public String translate(String sourceLanguage, String targetLanguage, String text) {
+    public String translate(@NotNull String sourceLanguage, @NotNull String targetLanguage, @NotNull String text) {
         try {
             String url = String.format(URL, sourceLanguage, targetLanguage, URLEncoder.encode(text, "UTF-8"));
             String result = Network.get(url);

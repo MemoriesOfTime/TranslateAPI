@@ -5,6 +5,7 @@ import cn.lanink.gamecore.api.Info;
 import cn.lanink.gamecore.hotswap.ModuleBase;
 import cn.lanink.gamecore.translateapi.provider.*;
 import cn.nukkit.scheduler.AsyncTask;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
@@ -55,12 +56,8 @@ public class TranslateAPI extends ModuleBase {
             @Override
             public void onRun() {
                 TranslateAPI.this.getLogger().info("正在测试翻译功能...");
-                String result = TranslateAPI.this.translateProvider.translate("Hello World!");
-                if (result != null) {
-                    TranslateAPI.this.getLogger().info("测试翻译结果: Hello World! -> " + result);
-                }else {
-                    TranslateAPI.this.getLogger().info("测试翻译失败！");
-                }
+                TranslateAPI.this.getLogger().info("测试翻译结果: Hello World! -> " + TranslateAPI.this.translateProvider.translate("Hello World!"));
+                TranslateAPI.this.getLogger().info("测试翻译结果: 你好 世界！ -> " + TranslateAPI.this.translateProvider.translate("zh_CN", "en", "你好 世界！"));
             }
         });
     }
@@ -75,11 +72,11 @@ public class TranslateAPI extends ModuleBase {
     }
 
     @Info("翻译为中文，调用此方法应放到异步！")
-    public String translate(String text) {
+    public String translate(@NotNull String text) {
         return this.translate("auto", "zh", text);
     }
 
-    public void translate(String text, Consumer<String> consumer) {
+    public void translate(@NotNull String text, @NotNull Consumer<String> consumer) {
         this.getServer().getScheduler().scheduleAsyncTask(GameCore.getInstance(), new AsyncTask() {
             @Override
             public void onRun() {
@@ -89,11 +86,11 @@ public class TranslateAPI extends ModuleBase {
     }
 
     @Info("根据输入翻译为指定语言，调用此方法应放到异步！")
-    public String translate(String sourceLanguage, String targetLanguage, String text) {
+    public String translate(@NotNull String sourceLanguage, @NotNull String targetLanguage, @NotNull String text) {
         return this.translateProvider.translate(sourceLanguage, targetLanguage, text);
     }
 
-    public void translate(String sourceLanguage, String targetLanguage, String text, Consumer<String> consumer) {
+    public void translate(@NotNull String sourceLanguage, @NotNull String targetLanguage, @NotNull String text, @NotNull Consumer<String> consumer) {
         this.getServer().getScheduler().scheduleAsyncTask(GameCore.getInstance(), new AsyncTask() {
             @Override
             public void onRun() {
