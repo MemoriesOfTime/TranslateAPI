@@ -14,8 +14,9 @@ import java.util.Map;
  */
 public class YoudaoTranslateProvider implements TranslateProvider {
 
-    public YoudaoTranslateProvider() {
-        TranslateAPI.getInstance().getLogger().info("TranslateProvider: Youdao");
+    @Override
+    public String getProviderName() {
+        return "Youdao";
     }
 
     @Override
@@ -55,7 +56,7 @@ public class YoudaoTranslateProvider implements TranslateProvider {
             HashMap<String, String> params = new HashMap<>();
             params.put("doctype", "json");
             String type = sourceLanguage.toUpperCase();
-            if (targetLanguage != null && !"".equals(targetLanguage.trim())) {
+            if (!"".equals(targetLanguage.trim())) {
                 if (!targetLanguage.toLowerCase().startsWith("zh")) {
                     targetLanguage = targetLanguage.split("_")[0].split("-")[0];
                 }else {

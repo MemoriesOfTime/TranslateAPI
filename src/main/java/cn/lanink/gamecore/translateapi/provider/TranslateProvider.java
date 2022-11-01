@@ -8,6 +8,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface TranslateProvider {
 
+    String getProviderName();
+
     @Info("是否支持自动识别源语言")
     default boolean isSupportAuto() {
         return true;

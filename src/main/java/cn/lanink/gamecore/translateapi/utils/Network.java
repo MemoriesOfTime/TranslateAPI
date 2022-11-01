@@ -1,5 +1,7 @@
 package cn.lanink.gamecore.translateapi.utils;
 
+import cn.lanink.gamecore.translateapi.TranslateAPI;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -19,7 +21,7 @@ public class Network {
     public static String get(String url) {
         StringBuilder stringBuilder = new StringBuilder();
         try {
-            HttpURLConnection uc = (HttpURLConnection) new URL(url).openConnection();
+            HttpURLConnection uc = (HttpURLConnection) new URL(url).openConnection(TranslateAPI.getInstance().getNetworkProxy());
             uc.setRequestMethod("GET");
             uc.setConnectTimeout(10000);
             uc.setReadTimeout(10000);
@@ -92,7 +94,7 @@ public class Network {
         StringBuilder stringBuilder = new StringBuilder();
         try {
             URL url = new URL(urlStr);
-            HttpURLConnection uc = (HttpURLConnection) url.openConnection();
+            HttpURLConnection uc = (HttpURLConnection) url.openConnection(TranslateAPI.getInstance().getNetworkProxy());
             uc.setConnectTimeout(10000);
             uc.setReadTimeout(10000);
             uc.setDoInput(true);

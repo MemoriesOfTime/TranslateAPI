@@ -24,8 +24,11 @@ public class BaiduTranslateProvider implements TranslateProvider {
     public BaiduTranslateProvider() {
         this.appid = TranslateAPI.getInstance().getConfig().getString("baidu.appId");
         this.securityKey = TranslateAPI.getInstance().getConfig().getString("baidu.secretKey");
+    }
 
-        TranslateAPI.getInstance().getLogger().info("TranslateProvider: Baidu");
+    @Override
+    public String getProviderName() {
+        return "Baidu";
     }
 
     @Override

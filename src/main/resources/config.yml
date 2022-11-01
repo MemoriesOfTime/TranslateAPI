@@ -1,21 +1,26 @@
 # 翻译接口选择
+# Translation interface selection
 # google / aliyun / baidu / youdao
 provider: google
 
-# 代理地址
-# 这会影响整个服务器，请谨慎使用
+# Http代理地址
+# 用于解决无法访问部分翻译接口的问题
+# Http proxy address
+# Used to solve the problem of not being able to access part of the translation interface
 proxy:
-  enable: false #是否启用代理
+  enable: false
   host: "127.0.0.1"
   port: 1080
 
 # 阿里云翻译账号配置 不使用阿里云接口请忽略
+# Aliyun translation account configuration Please ignore if you don't use Aliyun interface
 # https://usercenter.console.aliyun.com/#/manage/ak
 aliyun:
   accessKeyId: "1234"
   accessKeySecret: "1234"
 
 # 百度翻译账号配置 不使用百度翻译接口请忽略
+# Baidu translation account configuration Please ignore if you don't use Baidu translation interface
 # https://fanyi-api.baidu.com/
 baidu:
   appId: "1234"

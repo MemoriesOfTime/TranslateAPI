@@ -18,8 +18,9 @@ public class GoogleTranslateProvider implements TranslateProvider {
 
     private static final String URL = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=%s&tl=%s&dt=t&q=%s";
 
-    public GoogleTranslateProvider() {
-        TranslateAPI.getInstance().getLogger().info("TranslateProvider: Google");
+    @Override
+    public String getProviderName() {
+        return "Google";
     }
 
     public String translate(@NotNull String text) {
@@ -43,8 +44,8 @@ public class GoogleTranslateProvider implements TranslateProvider {
             }
 
             return stringBuilder.toString();
-        }catch (Exception error) {
-            TranslateAPI.getInstance().getLogger().error(error.getMessage());
+        }catch (Exception e) {
+            TranslateAPI.getInstance().getLogger().error(e.getMessage(), e);
         }
         return text;
     }

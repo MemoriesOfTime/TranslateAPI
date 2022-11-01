@@ -15,8 +15,16 @@ import org.jetbrains.annotations.NotNull;
  */
 public class AliyunTranslateProvider implements TranslateProvider {
 
+    private final String accessKeyId;
+    private final String accessKeySecret;
+
     public AliyunTranslateProvider() {
-        TranslateAPI.getInstance().getLogger().info("TranslateProvider: Aliyun");
+        this.accessKeyId = TranslateAPI.getInstance().getConfig().getString("aliyun.accessKeyId");
+        this.accessKeySecret = TranslateAPI.getInstance().getConfig().getString("aliyun.accessKeySecret");
+    }
+
+    public String getProviderName() {
+        return "Aliyun";
     }
 
     public String translate(@NotNull String text) {
@@ -26,8 +34,8 @@ public class AliyunTranslateProvider implements TranslateProvider {
     public String translate(@NotNull String sourceLanguage, @NotNull String targetLanguage, @NotNull String text) {
         try {
             Config config = new Config()
-                    .setAccessKeyId(TranslateAPI.getInstance().getConfig().getString("aliyun.accessKeyId"))
-                    .setAccessKeySecret(TranslateAPI.getInstance().getConfig().getString("aliyun.accessKeySecret"));
+                    .setAccessKeyId(this.accessKeyId)
+                    .setAccessKeySecret(this.accessKeySecret);
             config.endpoint = "mt.cn-hangzhou.aliyuncs.com";
             Client client = new Client(config);
             TranslateGeneralRequest translateGeneralRequest = new TranslateGeneralRequest()

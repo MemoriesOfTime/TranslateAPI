@@ -5,8 +5,10 @@ import cn.lanink.gamecore.api.Info;
 import cn.lanink.gamecore.hotswap.ModuleBase;
 import cn.lanink.gamecore.translateapi.provider.*;
 import cn.nukkit.scheduler.AsyncTask;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
+import java.net.Proxy;
 import java.util.function.Consumer;
 
 /**
@@ -21,6 +23,9 @@ public class TranslateAPI extends ModuleBase {
         return translateAPI;
     }
 
+    @Getter
+    private Proxy networkProxy = Proxy.NO_PROXY;
+
     private TranslateProvider translateProvider;
 
     @Override
@@ -30,8 +35,14 @@ public class TranslateAPI extends ModuleBase {
         this.saveDefaultConfig();
 
         if (this.getConfig().getBoolean("proxy.enable")) {
-            System.setProperty("proxyHost", this.getConfig().getString("proxy.host"));
-            System.setProperty("proxyPort", this.getConfig().getString("proxy.port"));
+            this.networkProxy = new Proxy(
+                    Proxy.Type.HTTP,
+                    new java.net.InetSocketAddress(
+                            this.getConfig().getString("proxy.host"),
+                            this.getConfig().getInt("proxy.port")
+                    )
+            );
+            this.getLogger().info("Using a web proxy: " + this.networkProxy.toString());
         }
 
         switch (this.getConfig().getString("provider").toLowerCase()) {
@@ -50,16 +61,18 @@ public class TranslateAPI extends ModuleBase {
                 break;
         }
 
-        this.getLogger().info("模块加载完成！");
+        this.getLogger().info("TranslateProvider: " + this.translateProvider.getProviderName());
 
         this.getServer().getScheduler().scheduleAsyncTask(GameCore.getInstance(), new AsyncTask() {
             @Override
             public void onRun() {
-                TranslateAPI.this.getLogger().info("正在测试翻译功能...");
-                TranslateAPI.this.getLogger().info("测试翻译结果: Hello World! -> " + TranslateAPI.this.translateProvider.translate("Hello World!"));
-                TranslateAPI.this.getLogger().info("测试翻译结果: 你好 世界！ -> " + TranslateAPI.this.translateProvider.translate("zh_CN", "en", "你好 世界！"));
+                TranslateAPI.this.getLogger().info("Testing the translation function...");
+                TranslateAPI.this.getLogger().info("Test translation results: Hello World! -> " + TranslateAPI.this.translateProvider.translate("Hello World!"));
+                TranslateAPI.this.getLogger().info("Test translation results: 你好 世界！ -> " + TranslateAPI.this.translateProvider.translate("zh_CN", "en", "你好 世界！"));
             }
         });
+
+        this.getLogger().info("TranslateAPI module loading complete!");
     }
 
     @Override
