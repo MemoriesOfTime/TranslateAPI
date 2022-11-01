@@ -54,7 +54,7 @@ public class YoudaoTranslateProvider implements TranslateProvider {
             HashMap<String, String> params = new HashMap<>();
             params.put("doctype", "json");
             String type = sourceLanguage.toUpperCase();
-            if (targetLanguage != null && "".equals(targetLanguage.trim())) {
+            if (targetLanguage != null && !"".equals(targetLanguage.trim())) {
                 if (!targetLanguage.toLowerCase().startsWith("zh")) {
                     targetLanguage = targetLanguage.split("_")[0].split("-")[0];
                 }else {
@@ -77,7 +77,7 @@ public class YoudaoTranslateProvider implements TranslateProvider {
                 return stringBuilder.toString();
             }
         }catch (Exception e) {
-            TranslateAPI.getInstance().getLogger().error(e.getMessage());
+            TranslateAPI.getInstance().getLogger().error(e.getMessage(), e);
         }
         return text;
     }

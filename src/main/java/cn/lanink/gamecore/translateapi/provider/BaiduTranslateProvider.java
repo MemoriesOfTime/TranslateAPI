@@ -37,8 +37,8 @@ public class BaiduTranslateProvider implements TranslateProvider {
         try {
             Map<String, String> params = new HashMap<>();
             params.put("q", text);
-            params.put("from", sourceLanguage);
-            params.put("to", targetLanguage);
+            params.put("from", sourceLanguage.split("_")[0].split("-")[0]);
+            params.put("to", targetLanguage.split("_")[0].split("-")[0]);
 
             params.put("appid", appid);
 
@@ -59,7 +59,7 @@ public class BaiduTranslateProvider implements TranslateProvider {
             }
             return stringBuilder.toString();
         } catch (Exception e) {
-            e.printStackTrace();
+            TranslateAPI.getInstance().getLogger().error(e.getMessage(), e);
         }
         return text;
     }
