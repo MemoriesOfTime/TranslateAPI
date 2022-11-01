@@ -6,7 +6,7 @@ import cn.lanink.gamecore.translateapi.utils.Network;
 import com.google.gson.reflect.TypeToken;
 import org.jetbrains.annotations.NotNull;
 
-import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -15,8 +15,6 @@ import java.util.List;
  * @author LT_Name
  */
 public class GoogleTranslateProvider implements TranslateProvider {
-
-    private static final String URL = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=%s&tl=%s&dt=t&q=%s";
 
     @Override
     public String getProviderName() {
@@ -29,8 +27,13 @@ public class GoogleTranslateProvider implements TranslateProvider {
 
     public String translate(@NotNull String sourceLanguage, @NotNull String targetLanguage, @NotNull String text) {
         try {
-            String url = String.format(URL, sourceLanguage, targetLanguage, URLEncoder.encode(text, "UTF-8"));
-            String result = Network.get(url);
+            HashMap<String, String> params = new HashMap<>();
+            params.put("client", "gtx");
+            params.put("dt", "t");
+            params.put("sl", sourceLanguage);
+            params.put("tl", targetLanguage);
+            params.put("q", text);
+            String result = Network.get("https://translate.googleapis.com/translate_a/single", params);
 
             List<List> list = (List) ((List)GameCore.GSON.fromJson(result, new TypeToken<List>() {}.getType())).get(0);
 
@@ -42,7 +45,6 @@ public class GoogleTranslateProvider implements TranslateProvider {
             for (List l : list) {
                 stringBuilder.append(l.get(0)).append(" ");
             }
-
             return stringBuilder.toString();
         }catch (Exception e) {
             TranslateAPI.getInstance().getLogger().error(e.getMessage(), e);

@@ -1,6 +1,6 @@
 name: TranslateAPI
 main: cn.lanink.gamecore.translateapi.TranslateAPI
-version: "0.0.2-SNAPSHOT"
+version: "0.0.2"
 api:
   - "1.0.11"
 author: "LT_Name"
